@@ -42,7 +42,7 @@ git clone https://github.com/gismo13/ArtGen.git
 cd ArtGen
 
 # Start all services
-docker-compose up -d
+docker compose up -d
 
 # Access the application
 # Frontend: http://localhost:3000
@@ -109,7 +109,7 @@ artgen/
 │   └── Dockerfile
 ├── database/               # Database scripts
 │   └── init.sql            # Schema initialization
-├── docker-compose.yml      # Docker services
+├── docker compose.yml      # Docker services
 ├── Dockerfile              # Frontend build
 ├── nginx.conf              # Nginx configuration
 └── package.json            # Frontend dependencies
