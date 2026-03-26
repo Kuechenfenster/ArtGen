@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+*.md
+.a0proj
+venv
+*.pyc
+__pycache__
+.env
+.env.local
+dist
+coverage
+*.log

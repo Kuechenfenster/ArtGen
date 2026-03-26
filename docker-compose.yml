@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # React Frontend (Nginx)
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    environment:
+      - VITE_API_URL=http://api:8080
+    networks:
+      - artnet
+    restart: unless-stopped
+
+  # Backend API (Node.js + Express)
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - PORT=8080
+      - DATABASE_URL=postgresql://artgen:artgen_secret_password@db:5432/artgen_db
+      - NODE_ENV=production
+    networks:
+      - artnet
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: artgen_postgres
+    environment:
+      POSTGRES_DB: artgen_db
+      POSTGRES_USER: artgen
+      POSTGRES_PASSWORD: artgen_secret_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - artnet
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U artgen -d artgen_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+networks:
+  artnet:
+    driver: bridge
+
+volumes:
+  postgres_data:
