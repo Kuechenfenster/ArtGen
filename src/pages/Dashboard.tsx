@@ -102,120 +102,153 @@ const mockProjects: Project[] = [
   },
 ]
 
-const getStatusColor = (status: ProjectStatus): string => {
+const getStatusGradient = (status: ProjectStatus): string => {
   switch (status) {
-    case 'In Progress': return 'bg-blue-500'
-    case 'Pending Review': return 'bg-yellow-500'
-    case 'Approved': return 'bg-green-500'
-    case 'On Hold': return 'bg-red-500'
-    default: return 'bg-gray-500'
+    case 'In Progress': return 'from-cyan-400 to-blue-500 shadow-cyan-500/25'
+    case 'Pending Review': return 'from-amber-400 to-orange-500 shadow-amber-500/25'
+    case 'Approved': return 'from-emerald-400 to-green-500 shadow-emerald-500/25'
+    case 'On Hold': return 'from-rose-400 to-red-500 shadow-rose-500/25'
+    default: return 'from-slate-400 to-gray-500 shadow-slate-500/25'
   }
 }
 
 const getComplianceColor = (status: string): string => {
   switch (status) {
-    case 'Compliant': return 'text-green-400'
-    case 'Needs Review': return 'text-yellow-400'
-    case 'Non-Compliant': return 'text-red-400'
-    default: return 'text-gray-400'
+    case 'Compliant': return 'text-emerald-400'
+    case 'Needs Review': return 'text-amber-400'
+    case 'Non-Compliant': return 'text-rose-400'
+    default: return 'text-slate-400'
+  }
+}
+
+const getComplianceBg = (status: string): string => {
+  switch (status) {
+    case 'Compliant': return 'bg-emerald-500/10 border-emerald-500/20'
+    case 'Needs Review': return 'bg-amber-500/10 border-amber-500/20'
+    case 'Non-Compliant': return 'bg-rose-500/10 border-rose-500/20'
+    default: return 'bg-slate-500/10 border-slate-500/20'
   }
 }
 
 export default function Dashboard({ onProjectSelect }: DashboardProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 page-enter">
       {/* Stats Overview */}
       <div className="grid grid-cols-4 gap-4">
-        <div className="card">
+        <div className="stat-card group">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-400 text-sm">Total Projects</p>
-              <p className="text-3xl font-bold text-hti-accent mt-1">{mockProjects.length}</p>
+              <p className="text-slate-400 text-sm font-medium">Total Projects</p>
+              <p className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-2">
+                {mockProjects.length}
+              </p>
             </div>
-            <span className="material-symbols-outlined text-4xl text-gray-500">folder</span>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="material-symbols-outlined text-3xl text-cyan-400">folder</span>
+            </div>
           </div>
         </div>
-        <div className="card">
+        
+        <div className="stat-card group">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-400 text-sm">In Progress</p>
-              <p className="text-3xl font-bold text-blue-400 mt-1">
+              <p className="text-slate-400 text-sm font-medium">In Progress</p>
+              <p className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mt-2">
                 {mockProjects.filter(p => p.status === 'In Progress').length}
               </p>
             </div>
-            <span className="material-symbols-outlined text-4xl text-blue-500">progress_activity</span>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="material-symbols-outlined text-3xl text-cyan-400">progress_activity</span>
+            </div>
           </div>
         </div>
-        <div className="card">
+        
+        <div className="stat-card group">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-400 text-sm">Pending Review</p>
-              <p className="text-3xl font-bold text-yellow-400 mt-1">
+              <p className="text-slate-400 text-sm font-medium">Pending Review</p>
+              <p className="text-4xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent mt-2">
                 {mockProjects.filter(p => p.status === 'Pending Review').length}
               </p>
             </div>
-            <span className="material-symbols-outlined text-4xl text-yellow-500">review</span>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="material-symbols-outlined text-3xl text-amber-400">review</span>
+            </div>
           </div>
         </div>
-        <div className="card">
+        
+        <div className="stat-card group">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-gray-400 text-sm">Approved</p>
-              <p className="text-3xl font-bold text-green-400 mt-1">
+              <p className="text-slate-400 text-sm font-medium">Approved</p>
+              <p className="text-4xl font-bold bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent mt-2">
                 {mockProjects.filter(p => p.status === 'Approved').length}
               </p>
             </div>
-            <span className="material-symbols-outlined text-4xl text-green-500">check_circle</span>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <span className="material-symbols-outlined text-3xl text-emerald-400">check_circle</span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Projects Grid */}
-      <div className="grid grid-cols-2 gap-4">
-        {mockProjects.map((project) => (
-          <button
-            key={project.id}
-            onClick={() => onProjectSelect(project)}
-            className="card text-left hover:border-hti-accent transition-colors group"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <h3 className="text-lg font-semibold group-hover:text-hti-accent transition-colors">
-                  {project.name}
-                </h3>
-                <p className="text-sm text-gray-400 mt-1">{project.id} • {project.sku}</p>
-              </div>
-              <span className={`px-3 py-1 rounded-full text-xs font-medium text-white ${getStatusColor(project.status)}`}>
-                {project.status}
-              </span>
-            </div>
-            
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2 text-gray-400">
-                <span className="material-symbols-outlined text-sm">branding_watermark</span>
-                <span>{project.brand}</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-400">
-                <span className="material-symbols-outlined text-sm">public</span>
-                <span>{project.targetMarkets.join(', ')}</span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-400">
-                <span className="material-symbols-outlined text-sm">event</span>
-                <span>Deadline: {project.deadline}</span>
-              </div>
-            </div>
-            
-            <div className="mt-4 pt-4 border-t border-hti-border-dark flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="material-symbols-outlined text-sm">verified</span>
-                <span className={`text-sm font-medium ${getComplianceColor(project.complianceStatus)}`}>
-                  {project.complianceStatus}
+      <div>
+        <h3 className="text-lg font-semibold text-slate-300 mb-4 flex items-center gap-2">
+          <span className="material-symbols-outlined text-cyan-400">grid_view</span>
+          Active Projects
+        </h3>
+        <div className="grid grid-cols-2 gap-4">
+          {mockProjects.map((project) => (
+            <button
+              key={project.id}
+              onClick={() => onProjectSelect(project)}
+              className="card text-left group hover-lift accent-border"
+            >
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="text-lg font-semibold text-white group-hover:text-cyan-400 transition-colors">
+                      {project.name}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-slate-400">{project.id} • {project.sku}</p>
+                </div>
+                <span className={`status-badge bg-gradient-to-r ${getStatusGradient(project.status)} shadow-lg`}>
+                  {project.status}
                 </span>
               </div>
-              <span className="text-sm text-gray-500">{project.artworkFiles.length} files</span>
-            </div>
-          </button>
-        ))}
+              
+              <div className="space-y-2.5 text-sm">
+                <div className="flex items-center gap-2.5 text-slate-400">
+                  <span className="material-symbols-outlined text-cyan-400 text-base">branding_watermark</span>
+                  <span>{project.brand}</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-slate-400">
+                  <span className="material-symbols-outlined text-cyan-400 text-base">public</span>
+                  <span>{project.targetMarkets.join(', ')}</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-slate-400">
+                  <span className="material-symbols-outlined text-cyan-400 text-base">event</span>
+                  <span>Deadline: {project.deadline}</span>
+                </div>
+              </div>
+              
+              <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between">
+                <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border ${getComplianceBg(project.complianceStatus)}`}>
+                  <span className="material-symbols-outlined text-sm">verified</span>
+                  <span className={`text-sm font-medium ${getComplianceColor(project.complianceStatus)}`}>
+                    {project.complianceStatus}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-slate-400">
+                  <span className="material-symbols-outlined text-sm">attach_file</span>
+                  <span className="text-sm">{project.artworkFiles.length} files</span>
+                </div>
+              </div>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   )
