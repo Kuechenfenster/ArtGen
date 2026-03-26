@@ -96,7 +96,7 @@ const getTypeBadgeColor = (type: string): string => {
 }
 
 export default function Translations() {
-  const [selectedOrder, setSelectedOrder] = useState<string | null>(null)
+  // Removed unused state
   const [statusFilter, setStatusFilter] = useState<string>('all')
 
   const filteredOrders = mockOrders.filter(order => 

@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState } from 'react'
 import { WarningTemplate } from '../types'
 
@@ -79,7 +80,7 @@ export default function WarningDatabase() {
   const [selectedLanguage, setSelectedLanguage] = useState('all')
   const [expandedWarning, setExpandedWarning] = useState<string | null>(null)
 
-  const allLanguages = ['all', 'en', 'de', 'fr', 'es']
+  // Removed unused constant
 
   const filteredWarnings = mockWarnings.filter((warning) => {
     const matchesSearch = warning.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
