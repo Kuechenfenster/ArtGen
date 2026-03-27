@@ -172,7 +172,7 @@ export default function Dashboard({ onProjectSelect }: DashboardProps) {
               </p>
             </div>
             <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <span className="material-symbols-outlined text-3xl text-amber-400">review</span>
+              <span className="material-symbols-outlined text-2xl text-amber-400">review</span>
             </div>
           </div>
         </div>
